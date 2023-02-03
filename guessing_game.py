@@ -12,36 +12,38 @@ def start_game():
 
     print(f"Welcome to the number guessing game {name}!")
 
-    answer = random.randint(1, 100)
-
-    attempts = 1
+    answer = random.randint(1, 10)
 
     def get_guess():
+        attempts = 1
         try:
             guess = int(
-                input("Try to guess the random number between 1 and 100.  "))
-            if guess > 100 or guess < 1:
-                raise ValueError(
-                    "Out of range - the random number is between 1 and 100")
-            return guess
+                input("Try to guess the random number between 1 and 10.  "))
+            if guess > 10 or guess < 1:
+                attempts += 1
+                print(
+                    f"{guess} is out of range - the random number is between 1 and 10")
+            if guess > answer:
+                print("It's lower")
+                attempts += 1
+                guess = get_guess()
+            elif guess < answer:
+                print("It's higher")
+                attempts += 1
+                guess = get_guess()
+            else:
+                print(
+                    f"Got it! 🥳 It took {attempts} attempts to get the correct number")
+                print(f"Game over. Thank you for playing {name}")
         except ValueError as err:
+            attempts += 1
             print("Oh no! That's not a valid number. Try again...")
             print(f"({err})")
             get_guess()
+        else:
+            return guess
 
-    guess = get_guess()
-
-    while guess != answer:
-        attempts += 1
-        if guess > answer:
-            print("It's lower")
-            guess = get_guess()
-        if guess < answer:
-            print("It's higher")
-            guess = get_guess()
-
-    print(f"Got it! 🥳 It took {attempts} attempts to get the correct number")
-    print(f"Game over. Thank you for playing {name}")
+    get_guess()
 
 
 start_game()
