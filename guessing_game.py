@@ -19,17 +19,15 @@ def start_game():
         try:
             guess = int(
                 input("Try to guess the random number between 1 and 10.  "))
+            attempts += 1
             if guess > 10 or guess < 1:
-                attempts += 1
                 print(
                     f"{guess} is out of range - the random number is between 1 and 10")
             if guess > answer:
                 print("It's lower")
-                attempts += 1
                 guess = get_guess()
             elif guess < answer:
                 print("It's higher")
-                attempts += 1
                 guess = get_guess()
             else:
                 print(
