@@ -2,35 +2,46 @@
 Python Web Development Techdegree
 Project 1 - Number Guessing Game
 --------------------------------
-
-For this first project we will be using Workspaces. 
-
-NOTE: If you strongly prefer to work locally on your own computer, you can totally do that by clicking: File -> Download Workspace in the file menu after you fork the snapshot of this workspace.
-
 """
 
 import random
 
 
 def start_game():
-    """Psuedo-code Hints
+    name = input("What is your name?  ")
 
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player "It's lower".
-      b. If the guess is less than the solution, display to the player "It's higher".
+    print(f"Welcome to the number guessing game {name}!")
 
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-        and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates the game is over.
+    answer = random.randint(1, 100)
 
-    ( You can add more features/enhancements if you'd like to. )
-    """
-    # write your code inside this function.
+    attempts = 1
+
+    def get_guess():
+        try:
+            guess = int(
+                input("Try to guess the random number between 1 and 100.  "))
+            if guess > 100 or guess < 1:
+                raise ValueError(
+                    "Out of range - the random number is between 1 and 100")
+            return guess
+        except ValueError as err:
+            print("Oh no! That's not a valid number. Try again...")
+            print(f"({err})")
+            get_guess()
+
+    guess = get_guess()
+
+    while guess != answer:
+        attempts += 1
+        if guess > answer:
+            print("It's lower")
+            guess = get_guess()
+        if guess < answer:
+            print("It's higher")
+            guess = get_guess()
+
+    print(f"Got it! 🥳 It took {attempts} attempts to get the correct number")
+    print(f"Game over. Thank you for playing {name}")
 
 
-# Kick off the program by calling the start_game function.
 start_game()
