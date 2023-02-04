@@ -21,6 +21,7 @@ def get_guess(attempts, answer):
             print(
                 f"{guess} is out of range 😕 the random number is between 1 and 10")
             attempts += 1
+            get_guess(attempts, answer)
         elif guess > answer:
             print("It's lower ⬇")
             attempts += 1
@@ -31,6 +32,7 @@ def get_guess(attempts, answer):
             get_guess(attempts, answer)
         else:
             # Correct guess
+            # TODO: save and update high_score
             print(
                 f"Got it! 🥳 \n It took {attempts} attempts to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
     except ValueError as err:
@@ -43,21 +45,18 @@ def get_guess(attempts, answer):
         return guess
 
 
-def replay_prompt():
-    replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
-    if replay_choice != "y" and replay_choice != "n":
-        print('Oops 😕 ... please enter either "Y" or "N"')
-        replay_prompt()
-    return replay_choice
-
-
 def start_game():
+    # TODO: Display the current high_score
     # Reset attempts and new random number before each round
     attempts = 0
     answer = random.randint(1, 10)
     get_guess(attempts, answer)
     # Prompt player if they would like to replay
-    replay_choice = replay_prompt()
+    replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
+    while replay_choice != "y" and replay_choice != "n":
+        # Handle invalid input
+        print('Oops 😕 ... please enter either "Y" or "N"')
+        replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
     if replay_choice == "n":
         sys.exit(
             f"Thank you for playing the random number guessing game {name} 😸")
@@ -66,13 +65,3 @@ def start_game():
 
 
 start_game()
-
-
-"""
-Extra Credit
-
-4 steps
-    2.  As a player of the game, after I guess correctly I should be prompted if I would like to play again.
-    3.  As a player of the game, at the start of each game I should be shown the current high score (least amount of points) so that I know what I am supposed to beat.
-    4.  Every time a player decides to play again, the random number to guess is updated so players are guessing something new each time.
-"""
