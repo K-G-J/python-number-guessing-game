@@ -47,3 +47,14 @@ def start_game():
 
 
 start_game()
+
+"""
+Extra Credit
+To get an "exceeds" rating, complete all of the steps below:
+
+4 steps
+    1.  As a player of the game, my guess should be within the number range. If my guess is outside the guessing range I should be told to try again. For example, if the range is 1-10 and the player enters 12 they should be informed that this number is outside the range.
+    2.  As a player of the game, after I guess correctly I should be prompted if I would like to play again.
+    3.  As a player of the game, at the start of each game I should be shown the current high score (least amount of points) so that I know what I am supposed to beat.
+    4.  Every time a player decides to play again, the random number to guess is updated so players are guessing something new each time.
+"""
