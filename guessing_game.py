@@ -5,6 +5,7 @@ Project 1 - Number Guessing Game
 """
 
 import random
+import sys
 
 name = input("What is your name?  ")
 
@@ -16,9 +17,11 @@ def get_guess(attempts, answer):
         guess = int(
             input("Try to guess the random number between 1 and 10.  "))
         if guess > 10 or guess < 1:
+            # Handle out of range guesses
             print(
                 f"{guess} is out of range 😕 the random number is between 1 and 10")
-        if guess > answer:
+            attempts += 1
+        elif guess > answer:
             print("It's lower ⬇")
             attempts += 1
             get_guess(attempts, answer)
@@ -27,9 +30,11 @@ def get_guess(attempts, answer):
             attempts += 1
             get_guess(attempts, answer)
         else:
+            # Correct guess
             print(
                 f"Got it! 🥳 \n It took {attempts} attempts to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
     except ValueError as err:
+        # Handle invalid value guesses
         print("Oh no! That's not a valid number 😕. Try again...")
         print(f"({err})")
         attempts += 1
@@ -38,20 +43,30 @@ def get_guess(attempts, answer):
         return guess
 
 
+def replay_prompt():
+    replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
+    if replay_choice != "y" and replay_choice != "n":
+        print('Oops 😕 ... please enter either "Y" or "N"')
+        replay_prompt()
+    return replay_choice
+
+
 def start_game():
+    # Reset attempts and new random number before each round
     attempts = 0
     answer = random.randint(1, 10)
     get_guess(attempts, answer)
+    # Prompt player if they would like to replay
+    replay_choice = replay_prompt()
+    if replay_choice == "n":
+        sys.exit(
+            f"Thank you for playing the random number guessing game {name} 😸")
+    while replay_choice == "y":
+        start_game()
 
 
 start_game()
 
-replay_choice = input("Would you like to play again? Y/N?  ")
-while replay_choice.lower() == "y":
-    start_game()
-    replay_choice = input("Would you like to play again? Y/N?  ")
-if replay_choice.lower() == "n":
-    print(f"Thank you for playing the random number guessing game {name} 😸")
 
 """
 Extra Credit
