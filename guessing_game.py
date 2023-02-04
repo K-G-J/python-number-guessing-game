@@ -6,13 +6,13 @@ Project 1 - Number Guessing Game
 
 import random
 
-answer = random.randint(1, 10)
-
-attempts = 0
-
 name = input("What is your name?  ")
 
 print(f"Welcome to the number guessing game {name}! 😄")
+
+answer = random.randint(1, 10)
+
+attempts = 0
 
 
 def get_guess():
