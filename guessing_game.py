@@ -27,9 +27,7 @@ def get_guess(attempts, answer, name):
                 continue
             elif guess == answer:
                 # Handle correct guess
-                print(
-                    f"Got it! 🥳 \n It took {attempts} attempt to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄") if attempts == 1 else print(
-                    f"Got it! 🥳 \n It took {attempts} attempts to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
+                print(f"Got it! 🥳 \n It took {attempts} attempt{'' if attempts == 1 else 's'} to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
                 return attempts
             else:
                 print("Oops 😕 ... something went wrong. Please try again.")
@@ -54,7 +52,7 @@ def main():
 
     name = input("What is your name?  ")
     print(f"Welcome to the number guessing game {name}! 😄")
-    attempts = start_game()
+    attempts = start_game(name)
 
     while True:
         # Set and display high score
@@ -68,7 +66,7 @@ def main():
         # Prompt player if they would like to replay
         replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
         if replay_choice == "y":
-            attempts = start_game()
+            attempts = start_game(name)
         elif replay_choice == "n":
             sys.exit(
                 f"Thank you for playing the random number guessing game {name} 😸")
