@@ -5,7 +5,6 @@ Project 1 - Number Guessing Game
 """
 
 import random
-import sys
 
 
 def get_guess(attempts, answer, name):
@@ -31,8 +30,8 @@ def get_guess(attempts, answer, name):
                 print("Oops 😕 ... something went wrong. Please try again.")
         except ValueError as err:
             # Handle invalid input guesses
-            print("Oh no! That's not a valid number 😕. Try again...")
-            print(f"({err})")
+            print(
+                f"Oh no! That's not a valid number 😕. Try again... \n ({err})")
 
 
 def start_game(name):
@@ -64,8 +63,9 @@ def main():
         if replay_choice == "y":
             attempts = start_game(name)
         elif replay_choice == "n":
-            sys.exit(
+            print(
                 f"Thank you for playing the random number guessing game {name} 😸")
+            return
         else:
             # Handle invalid input
             print('Oops 😕 ... please enter either "Y" or "N"')
