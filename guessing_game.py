@@ -27,7 +27,8 @@ def get_guess(attempts, answer, name):
                 continue
             elif guess == answer:
                 # Handle correct guess
-                print(f"Got it! 🥳 \n It took {attempts} attempt{'' if attempts == 1 else 's'} to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
+                print(
+                    f"Got it! 🥳 \n It took {attempts} attempt{'' if attempts == 1 else 's'} to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
                 return attempts
             else:
                 print("Oops 😕 ... something went wrong. Please try again.")
@@ -56,12 +57,12 @@ def main():
 
     while True:
         # Set and display high score
-        if high_score != 0:
-            print(f"The current high score is {high_score} 🤗")
-
         if high_score == 0 or attempts < high_score:
             high_score = attempts
             print("You set the high score! 🤩")
+
+        if high_score != 0:
+            print(f"The current high score is {high_score} 🤗")
 
         # Prompt player if they would like to replay
         replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
