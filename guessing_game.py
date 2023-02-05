@@ -35,7 +35,7 @@ def get_guess(attempts, answer, name):
                 print("Oops 😕 ... something went wrong. Please try again.")
                 continue
         except ValueError as err:
-            # Handle invalid value guesses
+            # Handle invalid input guesses
             print("Oh no! That's not a valid number 😕. Try again...")
             print(f"({err})")
             continue
@@ -45,26 +45,30 @@ def start_game(name):
     # Reset attempts and new random number before each round
     attempts = 0
     answer = random.randint(1, 10)
+
     return get_guess(attempts, answer, name)
 
 
 def main():
+    high_score = 0
+
     name = input("What is your name?  ")
     print(f"Welcome to the number guessing game {name}! 😄")
-    high_score = 0
-    attempts = start_game(name)
+    attempts = start_game()
+
     while True:
-        # Display high score
+        # Set and display high score
         if high_score != 0:
             print(f"The current high score is {high_score} 🤗")
 
         if high_score == 0 or attempts < high_score:
             high_score = attempts
             print("You set the high score! 🤩")
+
         # Prompt player if they would like to replay
         replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
         if replay_choice == "y":
-            attempts = start_game(name)
+            attempts = start_game()
         elif replay_choice == "n":
             sys.exit(
                 f"Thank you for playing the random number guessing game {name} 😸")
