@@ -9,6 +9,7 @@ import sys
 
 high_score = 0
 
+
 def get_guess(attempts, answer, name):
     global high_score
     while True:
