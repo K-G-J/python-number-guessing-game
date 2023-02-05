@@ -7,15 +7,8 @@ Project 1 - Number Guessing Game
 import random
 import sys
 
-name = input("What is your name?  ")
 
-print(f"Welcome to the number guessing game {name}! 😄")
-
-high_score = 0
-
-
-def get_guess(attempts, answer):
-    global high_score
+def get_guess(attempts, answer, name, high_score):
     try:
         guess = int(
             input("Try to guess the random number between 1 and 10.  "))
@@ -24,15 +17,15 @@ def get_guess(attempts, answer):
             print(
                 f"{guess} is out of range 😕 the random number is between 1 and 10")
             attempts += 1
-            get_guess(attempts, answer)
+            get_guess(attempts, answer, name, high_score)
         elif guess > answer:
             print("It's lower ⬇")
             attempts += 1
-            get_guess(attempts, answer)
+            get_guess(attempts, answer, name, high_score)
         elif guess < answer:
             print("It's higher ⬆")
             attempts += 1
-            get_guess(attempts, answer)
+            get_guess(attempts, answer, name, high_score)
         else:
             # Handle correct guess
             attempts += 1
@@ -48,19 +41,19 @@ def get_guess(attempts, answer):
         print("Oh no! That's not a valid number 😕. Try again...")
         print(f"({err})")
         attempts += 1
-        get_guess(attempts, answer)
+        get_guess(attempts, answer, name, high_score)
     else:
         return guess
 
 
-def start_game():
+def start_game(name, high_score):
     # Display current high score
     if high_score != 0:
         print(f"The current high score is {high_score} 🤗")
     # Reset attempts and new random number before each round
     attempts = 0
     answer = random.randint(1, 10)
-    get_guess(attempts, answer)
+    get_guess(attempts, answer, name, high_score)
     # Prompt player if they would like to replay
     replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
     while replay_choice != "y" and replay_choice != "n":
@@ -71,7 +64,15 @@ def start_game():
         sys.exit(
             f"Thank you for playing the random number guessing game {name} 😸")
     while replay_choice == "y":
-        start_game()
+        start_game(name, high_score)
 
 
-start_game()
+def main():
+    name = input("What is your name?  ")
+    print(f"Welcome to the number guessing game {name}! 😄")
+    high_score = 0
+    start_game(name, high_score)
+
+
+if __name__ == "__main__":
+    main()
