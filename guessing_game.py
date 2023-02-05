@@ -6,48 +6,46 @@ Project 1 - Number Guessing Game
 
 import random
 
+# Game parameters
+MIN = 1
+MAX = 10
+GUESS_PROMPT = f"Try to guess the random number between {MIN} and {MAX}.  "
 
-def get_guess(attempts, answer, name):
+# Greet the player by name
+NAME = input("What is your name?  ")
+print(f"Welcome to the number guessing game {NAME}! 😄")
+
+
+def play_game(answer):
+    attempts = 0
     while True:
+        attempts += 1
         try:
-            attempts += 1
-            guess = int(
-                input("Try to guess the random number between 1 and 10.  "))
-            if guess not in range(1, 11):
+            while (guess := int(input(GUESS_PROMPT))) not in range(MIN, MAX + 1):
                 # Handle out of range guesses
                 print(
-                    f"{guess} is out of range 😕 the random number is between 1 and 10")
-            elif guess > answer:
-                print("It's lower ⬇")
-            elif guess < answer:
-                print("It's higher ⬆")
-            elif guess == answer:
-                # Handle correct guess
-                print(
-                    f"Got it! 🥳 \n It took {attempts} attempt{'' if attempts == 1 else 's'} to get the correct number \n Game over 👋. \n Thank you for playing {name} 😄")
-                return attempts
-            else:
-                print("Oops 😕 ... something went wrong. Please try again.")
+                    f"{guess} is out of range 😕 the random number is between {MIN} and {MAX}")
         except ValueError as err:
             # Handle invalid input guesses
             print(
                 f"Oh no! That's not a valid number 😕. Try again... \n ({err})")
-
-
-def start_game(name):
-    # Reset attempts and new random number before each round
-    attempts = 0
-    answer = random.randint(1, 10)
-
-    return get_guess(attempts, answer, name)
-
+            continue
+        if guess == answer:
+            # Handle correct guess
+            print(
+                f"Got it! 🥳 \n It took {attempts} attempt{'' if attempts == 1 else 's'} to get the correct number \n Game over 👋. \n Thank you for playing {NAME} 😄")
+            return attempts
+        elif guess > answer:
+            print("It's lower ⬇")
+        elif guess < answer:
+            print("It's higher ⬆")
+        else:
+            print("Oops 😕 ... something went wrong. Please try again.")
 
 def main():
     high_score = 0
 
-    name = input("What is your name?  ")
-    print(f"Welcome to the number guessing game {name}! 😄")
-    attempts = start_game(name)
+    attempts = play_game(random.randint(1, 10))
 
     while True:
         # Set and display high score
@@ -61,10 +59,10 @@ def main():
         # Prompt player if they would like to replay
         replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
         if replay_choice == "y":
-            attempts = start_game(name)
+            attempts = play_game(random.randint(1, 10))
         elif replay_choice == "n":
             print(
-                f"Thank you for playing the random number guessing game {name} 😸")
+                f"Thank you for playing the random number guessing game {NAME} 😸")
             return
         else:
             # Handle invalid input
