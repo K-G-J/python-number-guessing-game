@@ -7,8 +7,10 @@ Project 1 - Number Guessing Game
 import random
 import sys
 
+high_score = 0
 
-def get_guess(attempts, answer, name, high_score):
+def get_guess(attempts, answer, name):
+    global high_score
     try:
         guess = int(
             input("Try to guess the random number between 1 and 10.  "))
@@ -17,15 +19,15 @@ def get_guess(attempts, answer, name, high_score):
             print(
                 f"{guess} is out of range 😕 the random number is between 1 and 10")
             attempts += 1
-            get_guess(attempts, answer, name, high_score)
+            get_guess(attempts, answer, name)
         elif guess > answer:
             print("It's lower ⬇")
             attempts += 1
-            get_guess(attempts, answer, name, high_score)
+            get_guess(attempts, answer, name)
         elif guess < answer:
             print("It's higher ⬆")
             attempts += 1
-            get_guess(attempts, answer, name, high_score)
+            get_guess(attempts, answer, name)
         else:
             # Handle correct guess
             attempts += 1
@@ -41,38 +43,37 @@ def get_guess(attempts, answer, name, high_score):
         print("Oh no! That's not a valid number 😕. Try again...")
         print(f"({err})")
         attempts += 1
-        get_guess(attempts, answer, name, high_score)
+        get_guess(attempts, answer, name)
     else:
         return guess
 
 
-def start_game(name, high_score):
+def start_game(name):
+    global high_score
     # Display current high score
     if high_score != 0:
         print(f"The current high score is {high_score} 🤗")
     # Reset attempts and new random number before each round
     attempts = 0
     answer = random.randint(1, 10)
-    get_guess(attempts, answer, name, high_score)
-    # Prompt player if they would like to replay
-    replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
-    while replay_choice != "y" and replay_choice != "n":
-        # Handle invalid input
-        print('Oops 😕 ... please enter either "Y" or "N"')
-        replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
-    if replay_choice == "n":
-        sys.exit(
-            f"Thank you for playing the random number guessing game {name} 😸")
-    while replay_choice == "y":
-        start_game(name, high_score)
+    get_guess(attempts, answer, name)
 
 
 def main():
     name = input("What is your name?  ")
     print(f"Welcome to the number guessing game {name}! 😄")
-    # TODO not reset highscore to 0 each round 
-    high_score = 0
-    start_game(name, high_score)
+    start_game(name)
+    while True:
+        # Prompt player if they would like to replay
+        replay_choice = (input("Would you like to play again? Y/N?  ")).lower()
+        if replay_choice == "y":
+            start_game(name)
+        elif replay_choice == "n":
+            sys.exit(
+                f"Thank you for playing the random number guessing game {name} 😸")
+        else:
+            # Handle invalid input
+            print('Oops 😕 ... please enter either "Y" or "N"')
 
 
 if __name__ == "__main__":
