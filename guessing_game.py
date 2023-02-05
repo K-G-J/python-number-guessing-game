@@ -13,7 +13,7 @@ def get_guess(attempts, answer, name):
             attempts += 1
             guess = int(
                 input("Try to guess the random number between 1 and 10.  "))
-            if guess > 10 or guess < 1:
+            if guess not in range(1, 11):
                 # Handle out of range guesses
                 print(
                     f"{guess} is out of range 😕 the random number is between 1 and 10")
