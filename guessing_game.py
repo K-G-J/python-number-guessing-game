@@ -70,6 +70,7 @@ def start_game(name, high_score):
 def main():
     name = input("What is your name?  ")
     print(f"Welcome to the number guessing game {name}! 😄")
+    # TODO not reset highscore to 0 each round 
     high_score = 0
     start_game(name, high_score)
 
