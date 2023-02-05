@@ -18,13 +18,10 @@ def get_guess(attempts, answer, name):
                 # Handle out of range guesses
                 print(
                     f"{guess} is out of range 😕 the random number is between 1 and 10")
-                continue
             elif guess > answer:
                 print("It's lower ⬇")
-                continue
             elif guess < answer:
                 print("It's higher ⬆")
-                continue
             elif guess == answer:
                 # Handle correct guess
                 print(
@@ -32,12 +29,10 @@ def get_guess(attempts, answer, name):
                 return attempts
             else:
                 print("Oops 😕 ... something went wrong. Please try again.")
-                continue
         except ValueError as err:
             # Handle invalid input guesses
             print("Oh no! That's not a valid number 😕. Try again...")
             print(f"({err})")
-            continue
 
 
 def start_game(name):
